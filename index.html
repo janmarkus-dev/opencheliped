@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Voice Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .api-section {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        #startBtn {
+            background: #667eea;
+            color: white;
+        }
+        #startBtn:hover:not(:disabled) {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        #stopBtn {
+            background: #dc3545;
+            color: white;
+        }
+        #stopBtn:hover:not(:disabled) {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .status.disconnected {
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+        .status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .visualizer {
+            width: 100%;
+            height: 100px;
+            margin-top: 20px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            display: none;
+        }
+        .visualizer.active {
+            display: block;
+        }
+        .transcript {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .message.assistant {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        .message.user {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+        .message.written pre {
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            margin: 5px 0 0 0;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #1565c0;
+        }
+        .confirm-btn, .cancel-btn {
+            margin-top: 10px;
+            margin-right: 10px;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+        .confirm-btn {
+            background: #28a745;
+            color: white;
+        }
+        .confirm-btn:hover {
+            background: #218838;
+        }
+        .cancel-btn {
+            background: #dc3545;
+            color: white;
+        }
+        .cancel-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Gemini Voice Assistant</h1>
+        <p class="subtitle">Powered by Google Gemini Live API</p>
+        
+        <div class="api-section">
+            <label for="apiKey">API Key:</label>
+            <input type="text" id="apiKey" placeholder="Enter your Google Gemini API key">
+        </div>
+
+        <div class="button-group">
+            <button id="startBtn">Start Conversation</button>
+            <button id="stopBtn" disabled>Stop</button>
+        </div>
+
+        <div id="status" class="status disconnected">
+            Not connected
+        </div>
+
+        <div class="input-section" style="margin-top: 20px; display: none;" id="textInputSection">
+            <label for="textInput">Text Input:</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="textInput" placeholder="Type your message here..." style="flex: 1;">
+                <button id="sendBtn" style="flex: 0 0 auto; padding: 12px 24px;">Send</button>
+            </div>
+        </div>
+
+        <canvas id="visualizer" class="visualizer"></canvas>
+        
+        <div id="transcript" class="transcript"></div>
+    </div>
+
+    <script type="module" src="client.js"></script>
+</body>
+</html>
