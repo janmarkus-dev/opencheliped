@@ -1,4 +1,4 @@
-# Gemini Voice Assistant
+# Opencheliped
 
 A web-based voice chat interface for Google's Gemini Live API with real-time audio processing.
 
