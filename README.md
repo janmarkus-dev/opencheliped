@@ -1,6 +1,5 @@
 # Opencheliped
-
-A web-based voice chat interface for Google's Gemini Live API with real-time audio processing.
+> A web-based multimodal personal assistant using Gemini live API for life automation.
 
 ## Setup
 
@@ -18,5 +17,6 @@ A web-based voice chat interface for Google's Gemini Live API with real-time aud
 
 ```bash
 python3 server.py
-# Open index.html in your browser
+python3 -m http server 8000
+# Open localhost:8000
 ```
